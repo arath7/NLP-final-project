@@ -1,4 +1,5 @@
 import os
+import sys
 import argparse
 import torch
 import torch.nn as nn
@@ -8,12 +9,18 @@ import torch.optim as optim
 import torch.utils.data as data
 import torchvision.transforms as transforms
 
-from dataset import Talk2Car
-from utils.collate import custom_collate
-from utils.util import AverageMeter, ProgressMeter, save_checkpoint
+# When running this file directly (python talk2car/baseline/train.py), ensure
+# the project root is on sys.path so package imports like `talk2car.*` work.
+if __name__ == "__main__":
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+    if repo_root not in sys.path:
+        sys.path.insert(0, repo_root)
 
-import models.resnet as resnet
-import models.nlp_models as nlp_models
+from talk2car.baseline.dataset import Talk2Car
+from talk2car.baseline.utils.collate import custom_collate
+from talk2car.baseline.utils.util import AverageMeter, ProgressMeter, save_checkpoint
+
+from talk2car.baseline.models import resnet, nlp_models
 
 parser = argparse.ArgumentParser(description='Talk2Car object referral')
 parser.add_argument('--root', metavar='DIR',
@@ -46,6 +53,15 @@ parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
 def main():
     args = parser.parse_args()
 
+    # Device selection: prefer CUDA, then MPS (Apple silicon), else CPU
+    mps_available = hasattr(torch.backends, "mps") and getattr(torch.backends.mps, "is_available", lambda: False)()
+    device = torch.device("cuda" if torch.cuda.is_available() else "mps" if mps_available else "cpu")
+    print(f"Using device: {device}")
+
+    # expose device to other functions in this module
+    global DEVICE
+    DEVICE = device
+
     # Create dataset
     print("=> creating dataset")
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -65,14 +81,16 @@ def main():
     img_encoder = resnet.__dict__['resnet18'](pretrained=True) 
     text_encoder = nlp_models.TextEncoder(input_dim=train_dataset.number_of_words(),
                                                  hidden_size=512, dropout=0.1)
-    img_encoder.cuda()
-    text_encoder.cuda()
+    img_encoder.to(device)
+    text_encoder.to(device)
 
     criterion = nn.CrossEntropyLoss(ignore_index = train_dataset.ignore_index, 
                                     reduction = 'mean')
-    criterion.cuda()    
-    
-    cudnn.benchmark = True
+    criterion.to(device)
+
+    # Only enable cudnn benchmark when using CUDA
+    if device.type == "cuda":
+        cudnn.benchmark = True
 
     # Optimizer and scheduler
     print("=> creating optimizer and scheduler")
@@ -143,35 +161,36 @@ def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
     m_iou = AverageMeter('IoU', ':6.2f')
     m_ap50 = AverageMeter('AP50', ':6.2f')
     progress = ProgressMeter(
-                len(train_dataloader),
-                [m_losses, m_top1, m_iou, m_ap50], prefix="Epoch: [{}]".format(epoch))
- 
+        len(train_dataloader),
+        [m_losses, m_top1, m_iou, m_ap50], prefix="Epoch: [{}]".format(epoch)
+    )
+
     img_encoder.train()
     text_encoder.train()
-    
+
     ignore_index = train_dataloader.dataset.ignore_index
-        
+
     for i, batch in enumerate(train_dataloader):
         optimizer.zero_grad()
-        
+
         # Data
-        region_proposals = batch['rpn_image'].cuda(non_blocking=True)
-        command = batch['command'].cuda(non_blocking=True)
-        command_length = batch['command_length'].cuda(non_blocking=True)
-        gt = batch['rpn_gt'].cuda(non_blocking=True)
-        iou = batch['rpn_iou'].cuda(non_blocking=True)
+        region_proposals = batch['rpn_image'].to(DEVICE, non_blocking=True)
+        command = batch['command'].to(DEVICE, non_blocking=True)
+        command_length = batch['command_length'].to(DEVICE, non_blocking=True)
+        gt = batch['rpn_gt'].to(DEVICE, non_blocking=True)
+        iou = batch['rpn_iou'].to(DEVICE, non_blocking=True)
         b, r, c, h, w = region_proposals.size()
 
         # Image features
-        img_features = img_encoder(region_proposals.view(b*r, c, h, w))
+        img_features = img_encoder(region_proposals.view(b * r, c, h, w))
         norm = img_features.norm(p=2, dim=1, keepdim=True)
         img_features = img_features.div(norm)
-       
+
         # Sentence features
-        _, sentence_features = text_encoder(command.permute(1,0), command_length)
+        _, sentence_features = text_encoder(command.permute(1, 0), command_length)
         norm = sentence_features.norm(p=2, dim=1, keepdim=True)
         sentence_features = sentence_features.div(norm)
-     
+
         # Product in latent space
         scores = torch.bmm(img_features.view(b, r, -1), sentence_features.unsqueeze(2)).squeeze()
 
@@ -182,18 +201,18 @@ def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
         optimizer.zero_grad()
         total_loss.backward()
         optimizer.step()
-        
+
         # Summary
         pred = torch.argmax(scores, 1)
         pred_bin = F.one_hot(pred, r).bool()
-        valid = (gt!=ignore_index)
+        valid = (gt != ignore_index)
         num_valid = torch.sum(valid).float().item()
-        m_top1.update(torch.sum(pred[valid]==gt[valid]).float().item(), num_valid)
+        m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
         m_iou.update(torch.masked_select(iou, pred_bin).sum().float().item(), b)
         m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
         m_losses.update(total_loss.item())
 
-        if i % args.print_freq==0:
+        if i % args.print_freq == 0:
             progress.display(i)
     
 
@@ -213,11 +232,11 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
     ignore_index = val_dataloader.dataset.ignore_index
  
     for i, batch in enumerate(val_dataloader):
-        
+
         # Data
-        region_proposals = batch['rpn_image'].cuda(non_blocking=True)
-        command = batch['command'].cuda(non_blocking=True)
-        command_length = batch['command_length'].cuda(non_blocking=True)
+        region_proposals = batch['rpn_image'].to(DEVICE, non_blocking=True)
+        command = batch['command'].to(DEVICE, non_blocking=True)
+        command_length = batch['command_length'].to(DEVICE, non_blocking=True)
         if len(batch["index"].shape) == 0:
             region_proposals = region_proposals.unsqueeze(0)
             command = command.unsqueeze(0)
@@ -226,15 +245,15 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
         b, r, c, h, w = region_proposals.size()
 
         # Image features
-        img_features = img_encoder(region_proposals.view(b*r, c, h, w))
+        img_features = img_encoder(region_proposals.view(b * r, c, h, w))
         norm = img_features.norm(p=2, dim=1, keepdim=True)
         img_features = img_features.div(norm)
-       
+
         # Sentence features
-        _, sentence_features = text_encoder(command.permute(1,0), command_length)
+        _, sentence_features = text_encoder(command.permute(1, 0), command_length)
         norm = sentence_features.norm(p=2, dim=1, keepdim=True)
         sentence_features = sentence_features.div(norm)
-     
+
         # Product in latent space
         scores = torch.bmm(img_features.view(b, r, -1), sentence_features.unsqueeze(2)).squeeze()
 
@@ -243,15 +262,15 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
 
         # Summary
         pred = torch.argmax(scores, 1)
-        gt = batch['rpn_gt'].cuda(non_blocking=True)
-        iou = batch['rpn_iou'].cuda(non_blocking=True)
+        gt = batch['rpn_gt'].to(DEVICE, non_blocking=True)
+        iou = batch['rpn_iou'].to(DEVICE, non_blocking=True)
         pred_bin = F.one_hot(pred, r).bool()
-        valid = (gt!=ignore_index)
+        valid = (gt != ignore_index)
         num_valid = torch.sum(valid).float().item()
-        m_top1.update(torch.sum(pred[valid]==gt[valid]).float().item(), num_valid)
+        m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
         m_iou.update(torch.masked_select(iou, pred_bin).sum().float().item(), b)
         m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
-        if i % args.print_freq==0:
+        if i % args.print_freq == 0:
             progress.display(i)
 
     return m_ap50.avg   
