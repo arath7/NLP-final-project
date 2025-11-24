@@ -25,7 +25,7 @@ class Talk2Car(data.Dataset):
 
         self.img_dir = os.path.join(self.data_root, 'images')
         self.transform = transform
-        self.vocabulary = Vocabulary(vocabulary)
+        #self.vocabulary = Vocabulary(vocabulary)
         self.talk2car = get_talk2car_class(root=talk2car_root, split=split, slim=True)
 
         if self.split in ['val', 'train']:
@@ -62,9 +62,13 @@ class Talk2Car(data.Dataset):
         output['image'] = img
 
         # Load command 
-        command_padded = self.vocabulary.sent2ix_andpad(sample.command, add_eos_token=True)
-        output['command'] = torch.LongTensor(command_padded)
-        output['command_length'] = len(self.vocabulary.sent2ix(sample.command)) + 1
+        # command_padded = self.vocabulary.sent2ix_andpad(sample.command, add_eos_token=True)
+        # output['command'] = torch.LongTensor(command_padded)
+        # output['command_length'] = len(self.vocabulary.sent2ix(sample.command)) + 1
+        # --- SBERT VERSION ---
+        # Load command as plain text instead of token IDs
+        output['command_text'] = sample.command
+
 
         # Load region proposals obtained with centernet return bboxes as (xl, yb, xr, yt)
         centernet_boxes = self.rpns[sample.command_token]
@@ -100,7 +104,9 @@ class Talk2Car(data.Dataset):
             output['gt_bbox_lbrt'] = torch.LongTensor([xl,yl,xt,yt])
 
             iou_array = jaccard(output['rpn_bbox_lbrt'].numpy(), output['gt_bbox_lbrt'].numpy().reshape(1, -1))
-            output['rpn_iou'] = torch.from_numpy(iou_array)
+            #output['rpn_iou'] = torch.from_numpy(iou_array)
+            output['rpn_iou'] = torch.from_numpy(iou_array).float()
+
             if np.any(iou_array >= 0.5):
                 gt = torch.LongTensor([np.argmax(iou_array)]) # Best matching is gt for training
                 output['rpn_gt'] = gt
@@ -111,9 +117,9 @@ class Talk2Car(data.Dataset):
        
         return output 
 
-    def number_of_words(self):
-        # Get number of words in the vocabulary
-        return self.vocabulary.number_of_words
+    # def number_of_words(self):
+    #     # Get number of words in the vocabulary
+    #     return self.vocabulary.number_of_words
 
     def convert_index_to_command_token(self, index):
         return self.talk2car.commands[index].command_token

@@ -8,6 +8,7 @@ import torch.backends.cudnn as cudnn
 import torch.optim as optim
 import torch.utils.data as data
 import torchvision.transforms as transforms
+from sentence_transformers import SentenceTransformer
 
 # When running this file directly (python talk2car/baseline/train.py), ensure
 # the project root is on sys.path so package imports like `talk2car.*` work.
@@ -20,7 +21,7 @@ from talk2car.baseline.dataset import Talk2Car
 from talk2car.baseline.utils.collate import custom_collate
 from talk2car.baseline.utils.util import AverageMeter, ProgressMeter, save_checkpoint
 
-from talk2car.baseline.models import resnet, nlp_models
+from talk2car.baseline.models import resnet, nlp_models, bert
 
 parser = argparse.ArgumentParser(description='Talk2Car object referral')
 parser.add_argument('--root', metavar='DIR',
@@ -50,6 +51,7 @@ parser.add_argument('-p', '--print-freq', default=10, type=int,
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
                     help='evaluate model on validation set')
 
+    
 def main():
     args = parser.parse_args()
 
@@ -79,10 +81,10 @@ def main():
     # Create model
     print("=> creating model")
     img_encoder = resnet.__dict__['resnet18'](pretrained=True) 
-    text_encoder = nlp_models.TextEncoder(input_dim=train_dataset.number_of_words(),
-                                                 hidden_size=512, dropout=0.1)
+    text_encoder = bert.SBERTEncoder().to(device)
+    #text_encoder = nlp_models.TextEncoder(input_dim=train_dataset.number_of_words(), hidden_size=512, dropout=0.1)
     img_encoder.to(device)
-    text_encoder.to(device)
+    #text_encoder.to(device)
 
     criterion = nn.CrossEntropyLoss(ignore_index = train_dataset.ignore_index, 
                                     reduction = 'mean')
@@ -175,9 +177,14 @@ def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
 
         # Data
         region_proposals = batch['rpn_image'].to(DEVICE, non_blocking=True)
-        command = batch['command'].to(DEVICE, non_blocking=True)
-        command_length = batch['command_length'].to(DEVICE, non_blocking=True)
-        gt = batch['rpn_gt'].to(DEVICE, non_blocking=True)
+        #command = batch['command'].to(DEVICE, non_blocking=True)
+        #command_length = batch['command_length'].to(DEVICE, non_blocking=True)
+        command_text = batch['command_text']   # list of strings
+
+        #gt = batch['rpn_gt'].to(DEVICE, non_blocking=True)
+        gt = batch['rpn_gt'].to(DEVICE).squeeze()
+
+
         iou = batch['rpn_iou'].to(DEVICE, non_blocking=True)
         b, r, c, h, w = region_proposals.size()
 
@@ -187,12 +194,16 @@ def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
         img_features = img_features.div(norm)
 
         # Sentence features
-        _, sentence_features = text_encoder(command.permute(1, 0), command_length)
+        #_, sentence_features = text_encoder(command.permute(1, 0), command_length)
+        sentence_features = text_encoder(command_text)
+
         norm = sentence_features.norm(p=2, dim=1, keepdim=True)
         sentence_features = sentence_features.div(norm)
 
         # Product in latent space
         scores = torch.bmm(img_features.view(b, r, -1), sentence_features.unsqueeze(2)).squeeze()
+        print("scores shape:", scores.shape)
+        print("gt shape:", gt.shape)
 
         # Loss
         total_loss = criterion(scores, gt)
@@ -203,14 +214,38 @@ def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
         optimizer.step()
 
         # Summary
-        pred = torch.argmax(scores, 1)
-        pred_bin = F.one_hot(pred, r).bool()
+        # pred = torch.argmax(scores, 1)
+        # pred_bin = F.one_hot(pred, r).bool()
+        # valid = (gt != ignore_index)
+        # num_valid = torch.sum(valid).float().item()
+        # m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
+        # m_iou.update(torch.masked_select(iou, pred_bin).sum().float().item(), b)
+        # m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
+        # m_losses.update(total_loss.item())
+
+        # ...existing code...
+        # Summary
+        pred = torch.argmax(scores, dim=1).to(iou.device)
+                
+        # When IoU is (B, R)
+        # ensure IoU is [B, 32]
+        if iou.dim() == 3 and iou.size(-1) == 1:
+            iou = iou.squeeze(-1)  # now [B, 32]
+        elif iou.dim() != 2:
+            raise RuntimeError("Unexpected IoU shape: {}".format(iou.shape))
+
+        pred_iou = iou.gather(1, pred.unsqueeze(1)).squeeze(1)
+        # select IoU for the predicted index per sample -> (B,)
+        #pred_iou = iou.gather(1, pred.unsqueeze(1)).squeeze(1)
         valid = (gt != ignore_index)
-        num_valid = torch.sum(valid).float().item()
-        m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
-        m_iou.update(torch.masked_select(iou, pred_bin).sum().float().item(), b)
-        m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
+        num_valid = int(torch.sum(valid).item())
+        if num_valid > 0:
+            m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
+            pred_iou_valid = pred_iou[valid]
+            m_iou.update(pred_iou_valid.sum().item(), num_valid)
+            m_ap50.update((pred_iou_valid > 0.5).sum().float().item(), num_valid)
         m_losses.update(total_loss.item())
+
 
         if i % args.print_freq == 0:
             progress.display(i)
@@ -235,8 +270,11 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
 
         # Data
         region_proposals = batch['rpn_image'].to(DEVICE, non_blocking=True)
-        command = batch['command'].to(DEVICE, non_blocking=True)
-        command_length = batch['command_length'].to(DEVICE, non_blocking=True)
+        #command = batch['command'].to(DEVICE, non_blocking=True)
+        #command_length = batch['command_length'].to(DEVICE, non_blocking=True)
+        command_text = batch['command_text']
+
+
         if len(batch["index"].shape) == 0:
             region_proposals = region_proposals.unsqueeze(0)
             command = command.unsqueeze(0)
@@ -250,7 +288,8 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
         img_features = img_features.div(norm)
 
         # Sentence features
-        _, sentence_features = text_encoder(command.permute(1, 0), command_length)
+        sentence_features = text_encoder(command_text)
+        #_, sentence_features = text_encoder(command.permute(1, 0), command_length)
         norm = sentence_features.norm(p=2, dim=1, keepdim=True)
         sentence_features = sentence_features.div(norm)
 
@@ -261,15 +300,39 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
             scores = scores.unsqueeze(0)
 
         # Summary
-        pred = torch.argmax(scores, 1)
+        # pred = torch.argmax(scores, 1)
+        # gt = batch['rpn_gt'].to(DEVICE, non_blocking=True)
+        # iou = batch['rpn_iou'].to(DEVICE, non_blocking=True)
+        # pred_bin = F.one_hot(pred, r).bool()
+        # valid = (gt != ignore_index)
+        # num_valid = torch.sum(valid).float().item()
+        # m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
+        # m_iou.update(torch.masked_select(iou, pred_bin).sum().float().item(), b)
+        # m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
+        # ...existing code...
+        # Summary
+        pred = torch.argmax(scores, dim=1).to(iou.device)
+                
+        # ensure IoU is [B, 32]
+        if iou.dim() == 3 and iou.size(-1) == 1:
+            iou = iou.squeeze(-1)  # now [B, 32]
+        elif iou.dim() != 2:
+            raise RuntimeError("Unexpected IoU shape: {}".format(iou.shape))
+
+        pred_iou = iou.gather(1, pred.unsqueeze(1)).squeeze(1)
         gt = batch['rpn_gt'].to(DEVICE, non_blocking=True)
         iou = batch['rpn_iou'].to(DEVICE, non_blocking=True)
-        pred_bin = F.one_hot(pred, r).bool()
+        #pred_iou = iou.gather(1, pred.unsqueeze(1)).squeeze(1)
         valid = (gt != ignore_index)
-        num_valid = torch.sum(valid).float().item()
-        m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
-        m_iou.update(torch.masked_select(iou, pred_bin).sum().float().item(), b)
-        m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
+        num_valid = int(torch.sum(valid).item())
+        if num_valid > 0:
+            m_top1.update(torch.sum(pred[valid] == gt[valid]).float().item(), num_valid)
+            pred_iou_valid = pred_iou[valid]
+            m_iou.update(pred_iou_valid.sum().item(), num_valid)
+            m_ap50.update((pred_iou_valid > 0.5).sum().float().item(), num_valid)
+
+
+
         if i % args.print_freq == 0:
             progress.display(i)
 
