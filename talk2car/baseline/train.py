@@ -202,8 +202,8 @@ def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
 
         # Product in latent space
         scores = torch.bmm(img_features.view(b, r, -1), sentence_features.unsqueeze(2)).squeeze()
-        print("scores shape:", scores.shape)
-        print("gt shape:", gt.shape)
+        #print("scores shape:", scores.shape)
+        #print("gt shape:", gt.shape)
 
         # Loss
         total_loss = criterion(scores, gt)
@@ -311,8 +311,12 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
         # m_ap50.update((torch.masked_select(iou, pred_bin) > 0.5).sum().float().item(), b)
         # ...existing code...
         # Summary
-        pred = torch.argmax(scores, dim=1).to(iou.device)
-                
+        #pred = torch.argmax(scores, dim=1).to(iou.device)
+        device = scores.device
+        pred = torch.argmax(scores, dim=1).to(device)
+        iou = batch.get('rpn_iou', None)
+        if iou is not None:
+            iou = iou.to(device, non_blocking=True)
         # ensure IoU is [B, 32]
         if iou.dim() == 3 and iou.size(-1) == 1:
             iou = iou.squeeze(-1)  # now [B, 32]
