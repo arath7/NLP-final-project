@@ -22,6 +22,8 @@ from talk2car.baseline.utils.collate import custom_collate
 from talk2car.baseline.utils.util import AverageMeter, ProgressMeter, save_checkpoint
 
 from talk2car.baseline.models import resnet, nlp_models, bert
+from talk2car.baseline.models.clip import CLIPTextEncoder
+
 
 parser = argparse.ArgumentParser(description='Talk2Car object referral')
 parser.add_argument('--root', metavar='DIR',
@@ -81,7 +83,8 @@ def main():
     # Create model
     print("=> creating model")
     img_encoder = resnet.__dict__['resnet18'](pretrained=True) 
-    text_encoder = bert.SBERTEncoder().to(device)
+    #text_encoder = bert.SBERTEncoder().to(device)
+    text_encoder = CLIPTextEncoder().to(device)
     #text_encoder = nlp_models.TextEncoder(input_dim=train_dataset.number_of_words(), hidden_size=512, dropout=0.1)
     img_encoder.to(device)
     #text_encoder.to(device)
