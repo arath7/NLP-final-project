@@ -55,10 +55,10 @@ class MultimodalFusion(nn.Module):
         self.text_proj = nn.Linear(text_dim, hidden_dim)
         self.fusion = nn.Sequential(
             nn.ReLU(),
-            nn.Dropout(0.5),  # Higher dropout
+            nn.Dropout(0.1),
             nn.Linear(hidden_dim, hidden_dim // 2),
             nn.ReLU(),
-            nn.Dropout(0.5),  # Higher dropout
+            nn.Dropout(0.1),
             nn.Linear(hidden_dim // 2, 1)
         )
     
@@ -78,7 +78,7 @@ def main():
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225])
     train_transform = transforms.Compose([
-                                transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+                                # transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
                                 transforms.ToTensor(),
                                 normalize])
     train_dataset = Talk2Car(talk2car_root=args.root, split='train',
