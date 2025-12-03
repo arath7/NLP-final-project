@@ -96,11 +96,12 @@ class Talk2Car(data.Dataset):
         # Store the region proposals together in one tensor by rescaling them to fixed size
         rpn_image = torch.FloatTensor(self.num_rpns_per_image, 3, 224, 224).zero_()
         
+        # image dims for expansion clamping (C, H, W)
         img_h, img_w = img.shape[1], img.shape[2]
 
         for i in range(self.num_rpns_per_image):
             rpn_ = bbox_lbrt[i]
-            ex_xl, ex_yb, ex_xr, ex_yt = self.expand_box(rpn_, img_w, img_h, ratio=0.3)
+            ex_xl, ex_yb, ex_xr, ex_yt = self.expand_box(rpn_, img_w, img_h, ratio=0.3) # adding expansion
             valid = (ex_yt - ex_yb > 5) & (ex_xr - ex_xl > 5)
             if valid:
                 rpn_image[i].copy_(torch.nn.functional.interpolate(img[:, ex_yb:ex_yt, ex_xl:ex_xr].unsqueeze(0), (224, 224)).squeeze())
