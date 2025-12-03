@@ -44,6 +44,20 @@ class Talk2Car(data.Dataset):
         rpns_score_ordered_idx = {k: np.argsort([rpn['score'] for rpn in v]) for k, v in self.data.items()}
         self.rpns = {k: [v[idx] for idx in rpns_score_ordered_idx[k][-self.num_rpns_per_image:]] for k, v in self.data.items()}
 
+    def expand_box(self, bbox, img_width, img_height, ratio=0.3):
+        xl, yb, xr, yt = bbox
+        w = xr - xl
+        h = yt - yb
+        dw = int(w * ratio)
+        dh = int(h * ratio)
+        
+        xl = max(0, int(xl - dw))
+        yb = max(0, int(yb - dh))
+        xr = min(img_width, int(xr + dw))
+        yt = min(img_height, int(yt + dh))
+        
+        return [xl, yb, xr, yt]
+
     def __len__(self):
         return len(self.talk2car.commands)
 
@@ -81,11 +95,15 @@ class Talk2Car(data.Dataset):
 
         # Store the region proposals together in one tensor by rescaling them to fixed size
         rpn_image = torch.FloatTensor(self.num_rpns_per_image, 3, 224, 224).zero_()
+        
+        img_h, img_w = img.shape[1], img.shape[2]
+
         for i in range(self.num_rpns_per_image):
             rpn_ = bbox_lbrt[i]
-            valid = (rpn_[3] - rpn_[1] > 5) & (rpn_[2] - rpn_[0] > 5)
+            ex_xl, ex_yb, ex_xr, ex_yt = self.expand_box(rpn_, img_w, img_h, ratio=0.3)
+            valid = (ex_yt - ex_yb > 5) & (ex_xr - ex_xl > 5)
             if valid:
-                rpn_image[i].copy_(torch.nn.functional.interpolate(img[:, rpn_[1]:rpn_[3], rpn_[0]:rpn_[2]].unsqueeze(0), (224, 224)).squeeze())
+                rpn_image[i].copy_(torch.nn.functional.interpolate(img[:, ex_yb:ex_yt, ex_xl:ex_xr].unsqueeze(0), (224, 224)).squeeze())
             else:
                 pass # Will keep zeros
 
