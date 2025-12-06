@@ -24,7 +24,8 @@ class SBERTEncoder(nn.Module):
         embeddings = self.encoder.encode(
             sentences,
             convert_to_tensor=True,
-            device=next(self.parameters()).device,
+            device=self.proj.weight.device,
+            #device=next(self.parameters()).device,
             show_progress_bar=False
         )
         return self.proj(embeddings)    # (B, 512)
