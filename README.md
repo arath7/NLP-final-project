@@ -9,5 +9,6 @@
 
 Main branch:
 
-Bert branch: This branch contains the code modifications for the text encoder. NLP-final-project/talk2car/baseline/models/ contains the architecture for the SBERT and CLIP text encoders in clip.py and bert.py respectively. These were imported in train.py to test out both encoders.
+Bert branch: This branch contains the code modifications for the text encoder. NLP-final-project/talk2car/baseline/models/ contains the architecture for the SBERT and CLIP text encoders in bert.py and clip.py respectively. These were imported in train.py to test out both encoders.
+
 
