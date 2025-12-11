@@ -1,0 +1,368 @@
+                    
+Epoch: [0][ 0/695] Loss 3.4738e+00 Acc@1  0.08 IoU  0.11 AP50  0.08						
+Epoch: [0][ 50/695] Loss 3.2500e+00 Acc@1  0.20 IoU  0.24 AP50  0.26						
+Epoch: [0][100/695] Loss 3.0830e+00 Acc@1  0.26 IoU  0.29 AP50  0.33						
+Epoch: [0][150/695] Loss 3.0092e+00 Acc@1  0.28 IoU  0.31 AP50  0.35						
+Epoch: [0][200/695] Loss 2.9645e+00 Acc@1  0.29 IoU  0.32 AP50  0.36						
+Epoch: [0][250/695] Loss 2.9323e+00 Acc@1  0.31 IoU  0.34 AP50  0.39						
+Epoch: [0][300/695] Loss 2.9114e+00 Acc@1  0.31 IoU  0.34 AP50  0.39						
+Epoch: [0][350/695] Loss 2.8937e+00 Acc@1  0.31 IoU  0.34 AP50  0.39						
+Epoch: [0][400/695] Loss 2.8794e+00 Acc@1  0.32 IoU  0.35 AP50  0.40						
+Epoch: [0][450/695] Loss 2.8678e+00 Acc@1  0.32 IoU  0.35 AP50  0.40						
+Epoch: [0][500/695] Loss 2.8583e+00 Acc@1  0.33 IoU  0.35 AP50  0.41						
+Epoch: [0][550/695] Loss 2.8506e+00 Acc@1  0.33 IoU  0.35 AP50  0.41						
+Epoch: [0][600/695] Loss 2.8428e+00 Acc@1  0.33 IoU  0.36 AP50  0.41						
+Epoch: [0][650/695] Loss 2.8397e+00 Acc@1  0.33 IoU  0.36 AP50  0.41						
+                    
+Test: [ 0/97] Acc@1  0.40 IoU  0.47 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.33 AP50  0.39						
+                    
+Epoch: [1][ 0/695] Loss 2.6876e+00 Acc@1  0.58 IoU  0.48 AP50  0.58						
+Epoch: [1][ 50/695] Loss 2.7319e+00 Acc@1  0.37 IoU  0.38 AP50  0.45						
+Epoch: [1][100/695] Loss 2.7273e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [1][150/695] Loss 2.7312e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [1][200/695] Loss 2.7279e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [1][250/695] Loss 2.7257e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [1][300/695] Loss 2.7306e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [1][350/695] Loss 2.7299e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [1][400/695] Loss 2.7316e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [1][450/695] Loss 2.7314e+00 Acc@1  0.36 IoU  0.37 AP50  0.43						
+Epoch: [1][500/695] Loss 2.7300e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [1][550/695] Loss 2.7301e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [1][600/695] Loss 2.7353e+00 Acc@1  0.36 IoU  0.37 AP50  0.43						
+Epoch: [1][650/695] Loss 2.7357e+00 Acc@1  0.36 IoU  0.37 AP50  0.43						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.34 AP50  0.40						
+                    
+Epoch: [2][ 0/695] Loss 2.7369e+00 Acc@1  0.25 IoU  0.23 AP50  0.25						
+Epoch: [2][ 50/695] Loss 2.6690e+00 Acc@1  0.36 IoU  0.36 AP50  0.42						
+Epoch: [2][100/695] Loss 2.6905e+00 Acc@1  0.35 IoU  0.37 AP50  0.43						
+Epoch: [2][150/695] Loss 2.6844e+00 Acc@1  0.37 IoU  0.38 AP50  0.45						
+Epoch: [2][200/695] Loss 2.6898e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [2][250/695] Loss 2.6951e+00 Acc@1  0.37 IoU  0.38 AP50  0.45						
+Epoch: [2][300/695] Loss 2.7002e+00 Acc@1  0.37 IoU  0.38 AP50  0.45						
+Epoch: [2][350/695] Loss 2.7036e+00 Acc@1  0.37 IoU  0.38 AP50  0.45						
+Epoch: [2][400/695] Loss 2.7045e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [2][450/695] Loss 2.7045e+00 Acc@1  0.37 IoU  0.38 AP50  0.45						
+Epoch: [2][500/695] Loss 2.7045e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [2][550/695] Loss 2.7054e+00 Acc@1  0.37 IoU  0.38 AP50  0.44						
+Epoch: [2][600/695] Loss 2.7067e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+Epoch: [2][650/695] Loss 2.7078e+00 Acc@1  0.36 IoU  0.38 AP50  0.44						
+                    
+Test: [ 0/97] Acc@1  0.30 IoU  0.39 AP50  0.50						
+Test: [50/97] Acc@1  0.31 IoU  0.32 AP50  0.38						
+                    
+Epoch: [3][ 0/695] Loss 2.5842e+00 Acc@1  0.36 IoU  0.42 AP50  0.55						
+Epoch: [3][ 50/695] Loss 2.6925e+00 Acc@1  0.39 IoU  0.39 AP50  0.46						
+Epoch: [3][100/695] Loss 2.6800e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][150/695] Loss 2.6638e+00 Acc@1  0.39 IoU  0.40 AP50  0.47						
+Epoch: [3][200/695] Loss 2.6664e+00 Acc@1  0.38 IoU  0.40 AP50  0.47						
+Epoch: [3][250/695] Loss 2.6699e+00 Acc@1  0.39 IoU  0.40 AP50  0.46						
+Epoch: [3][300/695] Loss 2.6724e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][350/695] Loss 2.6750e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][400/695] Loss 2.6769e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][450/695] Loss 2.6795e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][500/695] Loss 2.6797e+00 Acc@1  0.38 IoU  0.39 AP50  0.45						
+Epoch: [3][550/695] Loss 2.6788e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][600/695] Loss 2.6784e+00 Acc@1  0.38 IoU  0.39 AP50  0.46						
+Epoch: [3][650/695] Loss 2.6800e+00 Acc@1  0.38 IoU  0.39 AP50  0.45						
+                    
+Test: [ 0/97] Acc@1  0.40 IoU  0.39 AP50  0.50						
+Test: [50/97] Acc@1  0.31 IoU  0.33 AP50  0.41						
+                    
+Epoch: [4][ 0/695] Loss 2.7100e+00 Acc@1  0.40 IoU  0.30 AP50  0.40						
+Epoch: [4][ 50/695] Loss 2.6245e+00 Acc@1  0.42 IoU  0.42 AP50  0.50						
+Epoch: [4][100/695] Loss 2.6283e+00 Acc@1  0.41 IoU  0.40 AP50  0.47						
+Epoch: [4][150/695] Loss 2.6291e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][200/695] Loss 2.6255e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][250/695] Loss 2.6225e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][300/695] Loss 2.6245e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][350/695] Loss 2.6251e+00 Acc@1  0.40 IoU  0.39 AP50  0.46						
+Epoch: [4][400/695] Loss 2.6231e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][450/695] Loss 2.6188e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][500/695] Loss 2.6184e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][550/695] Loss 2.6179e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][600/695] Loss 2.6173e+00 Acc@1  0.40 IoU  0.40 AP50  0.47						
+Epoch: [4][650/695] Loss 2.6149e+00 Acc@1  0.41 IoU  0.40 AP50  0.47						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.30 IoU  0.33 AP50  0.39						
+                    
+Epoch: [5][ 0/695] Loss 2.5742e+00 Acc@1  0.42 IoU  0.35 AP50  0.42						
+Epoch: [5][ 50/695] Loss 2.5934e+00 Acc@1  0.41 IoU  0.39 AP50  0.47						
+Epoch: [5][100/695] Loss 2.5839e+00 Acc@1  0.41 IoU  0.40 AP50  0.47						
+Epoch: [5][150/695] Loss 2.5713e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][200/695] Loss 2.5693e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][250/695] Loss 2.5735e+00 Acc@1  0.42 IoU  0.40 AP50  0.47						
+Epoch: [5][300/695] Loss 2.5744e+00 Acc@1  0.42 IoU  0.40 AP50  0.47						
+Epoch: [5][350/695] Loss 2.5748e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][400/695] Loss 2.5755e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][450/695] Loss 2.5759e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][500/695] Loss 2.5740e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][550/695] Loss 2.5747e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][600/695] Loss 2.5758e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+Epoch: [5][650/695] Loss 2.5772e+00 Acc@1  0.42 IoU  0.41 AP50  0.48						
+                    
+Test: [ 0/97] Acc@1  0.40 IoU  0.47 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.33 AP50  0.39						
+                    
+Epoch: [6][ 0/695] Loss 2.5000e+00 Acc@1  0.42 IoU  0.41 AP50  0.42						
+Epoch: [6][ 50/695] Loss 2.5694e+00 Acc@1  0.41 IoU  0.40 AP50  0.48						
+Epoch: [6][100/695] Loss 2.5578e+00 Acc@1  0.42 IoU  0.42 AP50  0.49						
+Epoch: [6][150/695] Loss 2.5557e+00 Acc@1  0.42 IoU  0.42 AP50  0.49						
+Epoch: [6][200/695] Loss 2.5525e+00 Acc@1  0.42 IoU  0.42 AP50  0.49						
+Epoch: [6][250/695] Loss 2.5547e+00 Acc@1  0.42 IoU  0.42 AP50  0.49						
+Epoch: [6][300/695] Loss 2.5557e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [6][350/695] Loss 2.5560e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [6][400/695] Loss 2.5555e+00 Acc@1  0.42 IoU  0.42 AP50  0.49						
+Epoch: [6][450/695] Loss 2.5525e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [6][500/695] Loss 2.5523e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [6][550/695] Loss 2.5538e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [6][600/695] Loss 2.5535e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [6][650/695] Loss 2.5528e+00 Acc@1  0.43 IoU  0.42 AP50  0.50						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.34 AP50  0.41						
+                    
+Epoch: [7][ 0/695] Loss 2.6827e+00 Acc@1  0.45 IoU  0.37 AP50  0.45						
+Epoch: [7][ 50/695] Loss 2.5528e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][100/695] Loss 2.5336e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][150/695] Loss 2.5343e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][200/695] Loss 2.5258e+00 Acc@1  0.44 IoU  0.43 AP50  0.51						
+Epoch: [7][250/695] Loss 2.5227e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][300/695] Loss 2.5226e+00 Acc@1  0.44 IoU  0.43 AP50  0.50						
+Epoch: [7][350/695] Loss 2.5255e+00 Acc@1  0.44 IoU  0.43 AP50  0.50						
+Epoch: [7][400/695] Loss 2.5272e+00 Acc@1  0.44 IoU  0.43 AP50  0.51						
+Epoch: [7][450/695] Loss 2.5289e+00 Acc@1  0.44 IoU  0.43 AP50  0.51						
+Epoch: [7][500/695] Loss 2.5297e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][550/695] Loss 2.5315e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][600/695] Loss 2.5310e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [7][650/695] Loss 2.5310e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.30 IoU  0.33 AP50  0.39						
+                    
+Epoch: [8][ 0/695] Loss 2.7187e+00 Acc@1  0.27 IoU  0.29 AP50  0.36						
+Epoch: [8][ 50/695] Loss 2.5185e+00 Acc@1  0.43 IoU  0.42 AP50  0.50						
+Epoch: [8][100/695] Loss 2.5185e+00 Acc@1  0.43 IoU  0.43 AP50  0.50						
+Epoch: [8][150/695] Loss 2.5179e+00 Acc@1  0.44 IoU  0.43 AP50  0.51						
+Epoch: [8][200/695] Loss 2.5132e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [8][250/695] Loss 2.5145e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [8][300/695] Loss 2.5132e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][350/695] Loss 2.5119e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][400/695] Loss 2.5110e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][450/695] Loss 2.5068e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][500/695] Loss 2.5066e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][550/695] Loss 2.5070e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][600/695] Loss 2.5094e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [8][650/695] Loss 2.5100e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.34 AP50  0.40						
+                    
+Epoch: [9][ 0/695] Loss 2.4619e+00 Acc@1  0.58 IoU  0.49 AP50  0.58						
+Epoch: [9][ 50/695] Loss 2.4892e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [9][100/695] Loss 2.4928e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [9][150/695] Loss 2.4906e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [9][200/695] Loss 2.4961e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [9][250/695] Loss 2.5023e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [9][300/695] Loss 2.5001e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [9][350/695] Loss 2.5029e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [9][400/695] Loss 2.4993e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [9][450/695] Loss 2.5021e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [9][500/695] Loss 2.5032e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [9][550/695] Loss 2.5050e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [9][600/695] Loss 2.5053e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [9][650/695] Loss 2.5049e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.34 AP50  0.40						
+                    
+Epoch: [10][ 0/695] Loss 2.8940e+00 Acc@1  0.42 IoU  0.32 AP50  0.42						
+Epoch: [10][ 50/695] Loss 2.5228e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [10][100/695] Loss 2.5150e+00 Acc@1  0.47 IoU  0.45 AP50  0.52						
+Epoch: [10][150/695] Loss 2.5086e+00 Acc@1  0.47 IoU  0.44 AP50  0.53						
+Epoch: [10][200/695] Loss 2.5048e+00 Acc@1  0.47 IoU  0.44 AP50  0.53						
+Epoch: [10][250/695] Loss 2.5033e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [10][300/695] Loss 2.5020e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [10][350/695] Loss 2.5021e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [10][400/695] Loss 2.4995e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [10][450/695] Loss 2.5033e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [10][500/695] Loss 2.5024e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [10][550/695] Loss 2.5010e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [10][600/695] Loss 2.5022e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [10][650/695] Loss 2.5019e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.33 AP50  0.40						
+                    
+Epoch: [11][ 0/695] Loss 2.5704e+00 Acc@1  0.25 IoU  0.28 AP50  0.33						
+Epoch: [11][ 50/695] Loss 2.5035e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [11][100/695] Loss 2.4909e+00 Acc@1  0.45 IoU  0.43 AP50  0.50						
+Epoch: [11][150/695] Loss 2.4912e+00 Acc@1  0.45 IoU  0.42 AP50  0.50						
+Epoch: [11][200/695] Loss 2.4898e+00 Acc@1  0.45 IoU  0.43 AP50  0.50						
+Epoch: [11][250/695] Loss 2.4865e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [11][300/695] Loss 2.4896e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [11][350/695] Loss 2.4944e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [11][400/695] Loss 2.4920e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [11][450/695] Loss 2.4912e+00 Acc@1  0.46 IoU  0.44 AP50  0.51						
+Epoch: [11][500/695] Loss 2.4920e+00 Acc@1  0.46 IoU  0.44 AP50  0.51						
+Epoch: [11][550/695] Loss 2.4938e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [11][600/695] Loss 2.4953e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [11][650/695] Loss 2.4963e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.34 AP50  0.40						
+                    
+Epoch: [12][ 0/695] Loss 2.5180e+00 Acc@1  0.58 IoU  0.48 AP50  0.58						
+Epoch: [12][ 50/695] Loss 2.5255e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [12][100/695] Loss 2.5241e+00 Acc@1  0.45 IoU  0.42 AP50  0.50						
+Epoch: [12][150/695] Loss 2.5090e+00 Acc@1  0.45 IoU  0.42 AP50  0.51						
+Epoch: [12][200/695] Loss 2.5063e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [12][250/695] Loss 2.5044e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [12][300/695] Loss 2.5014e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [12][350/695] Loss 2.5003e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [12][400/695] Loss 2.4976e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [12][450/695] Loss 2.4995e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [12][500/695] Loss 2.4980e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [12][550/695] Loss 2.4953e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [12][600/695] Loss 2.4947e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [12][650/695] Loss 2.4929e+00 Acc@1  0.47 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.34 AP50  0.40						
+                    
+Epoch: [13][ 0/695] Loss 2.6140e+00 Acc@1  0.33 IoU  0.36 AP50  0.42						
+Epoch: [13][ 50/695] Loss 2.5189e+00 Acc@1  0.43 IoU  0.41 AP50  0.48						
+Epoch: [13][100/695] Loss 2.5089e+00 Acc@1  0.43 IoU  0.42 AP50  0.49						
+Epoch: [13][150/695] Loss 2.5073e+00 Acc@1  0.43 IoU  0.42 AP50  0.50						
+Epoch: [13][200/695] Loss 2.4954e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [13][250/695] Loss 2.4982e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [13][300/695] Loss 2.4942e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][350/695] Loss 2.4935e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][400/695] Loss 2.4914e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][450/695] Loss 2.4906e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][500/695] Loss 2.4897e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][550/695] Loss 2.4892e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][600/695] Loss 2.4904e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [13][650/695] Loss 2.4900e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.34 AP50  0.41						
+                    
+Epoch: [14][ 0/695] Loss 2.3655e+00 Acc@1  0.42 IoU  0.34 AP50  0.42						
+Epoch: [14][ 50/695] Loss 2.4913e+00 Acc@1  0.46 IoU  0.43 AP50  0.52						
+Epoch: [14][100/695] Loss 2.4943e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [14][150/695] Loss 2.4862e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [14][200/695] Loss 2.4841e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][250/695] Loss 2.4844e+00 Acc@1  0.47 IoU  0.44 AP50  0.52						
+Epoch: [14][300/695] Loss 2.4857e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][350/695] Loss 2.4842e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][400/695] Loss 2.4848e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][450/695] Loss 2.4861e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][500/695] Loss 2.4838e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][550/695] Loss 2.4861e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][600/695] Loss 2.4881e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [14][650/695] Loss 2.4868e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.33 AP50  0.40						
+                    
+Epoch: [15][ 0/695] Loss 2.4387e+00 Acc@1  0.70 IoU  0.61 AP50  0.70						
+Epoch: [15][ 50/695] Loss 2.4573e+00 Acc@1  0.48 IoU  0.46 AP50  0.55						
+Epoch: [15][100/695] Loss 2.4732e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][150/695] Loss 2.4760e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][200/695] Loss 2.4736e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][250/695] Loss 2.4800e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][300/695] Loss 2.4824e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][350/695] Loss 2.4850e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [15][400/695] Loss 2.4882e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [15][450/695] Loss 2.4866e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][500/695] Loss 2.4888e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][550/695] Loss 2.4885e+00 Acc@1  0.46 IoU  0.44 AP50  0.53						
+Epoch: [15][600/695] Loss 2.4896e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [15][650/695] Loss 2.4871e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.33 AP50  0.40						
+                    
+Epoch: [16][ 0/695] Loss 2.4690e+00 Acc@1  0.40 IoU  0.33 AP50  0.40						
+Epoch: [16][ 50/695] Loss 2.4727e+00 Acc@1  0.48 IoU  0.45 AP50  0.53						
+Epoch: [16][100/695] Loss 2.4737e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [16][150/695] Loss 2.4856e+00 Acc@1  0.45 IoU  0.43 AP50  0.50						
+Epoch: [16][200/695] Loss 2.4871e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [16][250/695] Loss 2.4872e+00 Acc@1  0.46 IoU  0.44 AP50  0.51						
+Epoch: [16][300/695] Loss 2.4867e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [16][350/695] Loss 2.4845e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [16][400/695] Loss 2.4808e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [16][450/695] Loss 2.4804e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [16][500/695] Loss 2.4831e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [16][550/695] Loss 2.4855e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [16][600/695] Loss 2.4831e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [16][650/695] Loss 2.4850e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.33 AP50  0.40						
+                    
+Epoch: [17][ 0/695] Loss 2.4420e+00 Acc@1  0.67 IoU  0.59 AP50  0.67						
+Epoch: [17][ 50/695] Loss 2.4685e+00 Acc@1  0.47 IoU  0.45 AP50  0.52						
+Epoch: [17][100/695] Loss 2.4693e+00 Acc@1  0.45 IoU  0.44 AP50  0.52						
+Epoch: [17][150/695] Loss 2.4735e+00 Acc@1  0.46 IoU  0.45 AP50  0.52						
+Epoch: [17][200/695] Loss 2.4802e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][250/695] Loss 2.4792e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][300/695] Loss 2.4807e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][350/695] Loss 2.4781e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][400/695] Loss 2.4825e+00 Acc@1  0.46 IoU  0.44 AP50  0.51						
+Epoch: [17][450/695] Loss 2.4808e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][500/695] Loss 2.4821e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][550/695] Loss 2.4849e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [17][600/695] Loss 2.4824e+00 Acc@1  0.46 IoU  0.44 AP50  0.53						
+Epoch: [17][650/695] Loss 2.4799e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.32 IoU  0.33 AP50  0.40						
+                    
+Epoch: [18][ 0/695] Loss 2.7427e+00 Acc@1  0.18 IoU  0.29 AP50  0.36						
+Epoch: [18][ 50/695] Loss 2.4957e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [18][100/695] Loss 2.4923e+00 Acc@1  0.47 IoU  0.44 AP50  0.52						
+Epoch: [18][150/695] Loss 2.4838e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [18][200/695] Loss 2.4801e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [18][250/695] Loss 2.4731e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [18][300/695] Loss 2.4710e+00 Acc@1  0.46 IoU  0.45 AP50  0.53						
+Epoch: [18][350/695] Loss 2.4746e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [18][400/695] Loss 2.4735e+00 Acc@1  0.46 IoU  0.45 AP50  0.53						
+Epoch: [18][450/695] Loss 2.4795e+00 Acc@1  0.46 IoU  0.45 AP50  0.53						
+Epoch: [18][500/695] Loss 2.4778e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [18][550/695] Loss 2.4769e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [18][600/695] Loss 2.4766e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [18][650/695] Loss 2.4797e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.33 IoU  0.34 AP50  0.41						
+                    
+                    
+Epoch: [19][ 0/695] Loss 2.5978e+00 Acc@1  0.42 IoU  0.42 AP50  0.50						
+Epoch: [19][ 50/695] Loss 2.4937e+00 Acc@1  0.46 IoU  0.44 AP50  0.51						
+Epoch: [19][100/695] Loss 2.4895e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [19][150/695] Loss 2.4865e+00 Acc@1  0.46 IoU  0.44 AP50  0.51						
+Epoch: [19][200/695] Loss 2.4824e+00 Acc@1  0.45 IoU  0.43 AP50  0.51						
+Epoch: [19][250/695] Loss 2.4831e+00 Acc@1  0.45 IoU  0.44 AP50  0.51						
+Epoch: [19][300/695] Loss 2.4797e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [19][350/695] Loss 2.4777e+00 Acc@1  0.46 IoU  0.43 AP50  0.51						
+Epoch: [19][400/695] Loss 2.4767e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [19][450/695] Loss 2.4777e+00 Acc@1  0.46 IoU  0.44 AP50  0.52						
+Epoch: [19][500/695] Loss 2.4762e+00 Acc@1  0.47 IoU  0.44 AP50  0.52						
+Epoch: [19][550/695] Loss 2.4750e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [19][600/695] Loss 2.4760e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+Epoch: [19][650/695] Loss 2.4766e+00 Acc@1  0.47 IoU  0.45 AP50  0.53						
+                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.33 IoU  0.34 AP50  0.41						
+=> Evaluating best model                    
+Test: [ 0/97] Acc@1  0.50 IoU  0.48 AP50  0.60						
+Test: [50/97] Acc@1  0.31 IoU  0.34 AP50  0.41						
+                    
+AP50 on validation set is 44.42						
+IoU on validation set is 36.76						
+Top1 Acc on validation set is 34.65						
