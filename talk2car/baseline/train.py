@@ -25,7 +25,7 @@ parser.add_argument('--root', metavar='DIR',
                     help='path to dataset')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
-parser.add_argument('--epochs', default=10, type=int, metavar='N',
+parser.add_argument('--epochs', default=20, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
@@ -117,7 +117,7 @@ def main():
         scheduler.step()
         
         # Evaluate
-        ap50 = evaluate(val_dataloader, img_encoder, text_encoder, args)
+        ap50, iou, top1 = evaluate(val_dataloader, img_encoder, text_encoder, args)
         
         # Checkpoint
         if ap50 > best_ap50:
@@ -138,8 +138,11 @@ def main():
         checkpoint = torch.load('best_model.pth.tar', map_location='cpu')
         img_encoder.load_state_dict(checkpoint['img_encoder'])
         text_encoder.load_state_dict(checkpoint['text_encoder'])
-        ap50 = evaluate(val_dataloader, img_encoder, text_encoder, args)
+        ap50, iou, top1 = evaluate(val_dataloader, img_encoder, text_encoder, args)
         print('AP50 on validation set is %.2f' %(ap50*100))
+        print('IoU on validation set is %.2f' %(iou*100))
+        print('Top1 Acc on validation set is %.2f' %(top1*100))
+        
 
 def train(train_dataloader, img_encoder, text_encoder, optimizer, criterion,
             epoch, args):
@@ -259,7 +262,7 @@ def evaluate(val_dataloader, img_encoder, text_encoder, args):
         if i % args.print_freq==0:
             progress.display(i)
 
-    return m_ap50.avg   
+    return m_ap50.avg, m_iou.avg, m_top1.avg   
 
 if __name__ == "__main__":
     main()
