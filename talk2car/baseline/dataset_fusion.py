@@ -44,6 +44,7 @@ class Talk2Car(data.Dataset):
         rpns_score_ordered_idx = {k: np.argsort([rpn['score'] for rpn in v]) for k, v in self.data.items()}
         self.rpns = {k: [v[idx] for idx in rpns_score_ordered_idx[k][-self.num_rpns_per_image:]] for k, v in self.data.items()}
 
+    # Expanding a box by a given ratio for context expanson 
     def expand_box(self, bbox, img_width, img_height, ratio=0.3):
         xl, yb, xr, yt = bbox
         w = xr - xl
@@ -95,16 +96,13 @@ class Talk2Car(data.Dataset):
 
         # Store the region proposals together in one tensor by rescaling them to fixed size
         rpn_image = torch.FloatTensor(self.num_rpns_per_image, 3, 224, 224).zero_()
-        
-        # image dims for expansion clamping (C, H, W)
-        img_h, img_w = img.shape[1], img.shape[2]
-
+        img_h, img_w = img.shape[1], img.shape[2] # image dimensions for expansion (C, H, W)
         for i in range(self.num_rpns_per_image):
             rpn_ = bbox_lbrt[i]
             ex_xl, ex_yb, ex_xr, ex_yt = self.expand_box(rpn_, img_w, img_h, ratio=0.3)
             valid = (ex_yt - ex_yb > 5) & (ex_xr - ex_xl > 5)
             if valid:
-                rpn_image[i].copy_(torch.nn.functional.interpolate(img[:, ex_yb:ex_yt, ex_xl:ex_xr].unsqueeze(0), (224, 224)).squeeze())
+                rpn_image[i].copy_(torch.nn.functional.interpolate(img[:, ex_yb:ex_yt, ex_xl:ex_xr].unsqueeze(0), (224, 224)).squeeze()) # resizing and copying the region 
             else:
                 pass # Will keep zeros
 
