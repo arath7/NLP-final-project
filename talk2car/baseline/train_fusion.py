@@ -49,21 +49,25 @@ parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
                     help='evaluate model on validation set')
 
 class MultimodalFusion(nn.Module):
-    def __init__(self, visual_dim=512, text_dim=512, hidden_dim=256):
+    def __init__(self, visual_dim=512, text_dim=512, hidden_dim=256, spatial_dim=8):
         super().__init__()
         self.visual_proj = nn.Linear(visual_dim, hidden_dim)
         self.text_proj = nn.Linear(text_dim, hidden_dim)
+        self.spatial_proj = nn.Linear(spatial_dim, visual_dim) # adding a spatial projection layer to the iamge features
         self.fusion = nn.Sequential(
             nn.ReLU(),
-            nn.Dropout(0.1),
+            nn.Dropout(0.1),  # lowering dropout rate from 0.5
             nn.Linear(hidden_dim, hidden_dim // 2),
             nn.ReLU(),
-            nn.Dropout(0.1),
+            nn.Dropout(0.1),  # lowering dropout rate from 0.5
             nn.Linear(hidden_dim // 2, 1)
         )
     
-    def forward(self, img_features, text_features):
+    def forward(self, img_features, text_features, spatial_features):
         B, R, _ = img_features.shape
+        # projecting the spatial features
+        spat_emb = self.spatial_proj(spatial_features)
+        img_features = img_features + spat_emb
         v = self.visual_proj(img_features)
         t = self.text_proj(text_features).unsqueeze(1).expand(-1, R, -1)
         combined = v * t
@@ -78,12 +82,11 @@ def main():
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                   std=[0.229, 0.224, 0.225])
     train_transform = transforms.Compose([
-                                # transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+                                transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
                                 transforms.ToTensor(),
                                 normalize])
     train_dataset = Talk2Car(talk2car_root=args.root, split='train',
                                 transform=train_transform)
-                                # transform=transforms.Compose([transforms.ToTensor(), normalize]))
     val_dataset = Talk2Car(talk2car_root=args.root, split='val',
                         transform=transforms.Compose([transforms.ToTensor(), normalize]))
 
@@ -147,7 +150,7 @@ def main():
         scheduler.step()
         
         # Evaluate
-        ap50 = evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args)
+        ap50, iou, top1 = evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args)
         
         # Checkpoint
         if ap50 > best_ap50:
@@ -170,8 +173,10 @@ def main():
         img_encoder.load_state_dict(checkpoint['img_encoder'])
         text_encoder.load_state_dict(checkpoint['text_encoder'])
         fusion_module.load_state_dict(checkpoint['fusion_module'])
-        ap50 = evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args)
+        ap50, iou, top1 = evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args)
         print('AP50 on validation set is %.2f' %(ap50*100))
+        print('IoU on validation set is %.2f' %(iou*100))
+        print('Top1 Acc on validation set is %.2f' %(top1*100))
 
 def train(train_dataloader, img_encoder, text_encoder, fusion_module, optimizer, criterion,
             epoch, args):
@@ -198,6 +203,7 @@ def train(train_dataloader, img_encoder, text_encoder, fusion_module, optimizer,
         command_length = batch['command_length'].cuda(non_blocking=True)
         gt = batch['rpn_gt'].cuda(non_blocking=True)
         iou = batch['rpn_iou'].cuda(non_blocking=True)
+        spatial = batch['spatial_features'].cuda(non_blocking=True) # adding spatial features and loading to gpu
         b, r, c, h, w = region_proposals.size()
 
         # Image features
@@ -211,7 +217,7 @@ def train(train_dataloader, img_encoder, text_encoder, fusion_module, optimizer,
         sentence_features = sentence_features.div(norm)
      
         # Product in latent space
-        scores = fusion_module(img_features.view(b, r, -1), sentence_features)
+        scores = fusion_module(img_features.view(b, r, -1), sentence_features, spatial)
 
         # Loss
         total_loss = criterion(scores, gt)
@@ -257,10 +263,12 @@ def evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args):
         region_proposals = batch['rpn_image'].cuda(non_blocking=True)
         command = batch['command'].cuda(non_blocking=True)
         command_length = batch['command_length'].cuda(non_blocking=True)
+        spatial = batch['spatial_features'].cuda(non_blocking=True)
         if len(batch["index"].shape) == 0:
             region_proposals = region_proposals.unsqueeze(0)
             command = command.unsqueeze(0)
             command_length = command_length.unsqueeze(0)
+            spatial = spatial.unsqueeze(0) # ensureing the batch dimension 
 
         b, r, c, h, w = region_proposals.size()
 
@@ -275,7 +283,7 @@ def evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args):
         sentence_features = sentence_features.div(norm)
      
         # Product in latent space
-        scores = fusion_module(img_features.view(b, r, -1), sentence_features)
+        scores = fusion_module(img_features.view(b, r, -1), sentence_features, spatial)
 
         if len(batch["index"].shape) == 0:
             scores = scores.unsqueeze(0)
@@ -293,7 +301,7 @@ def evaluate(val_dataloader, img_encoder, text_encoder, fusion_module, args):
         if i % args.print_freq==0:
             progress.display(i)
 
-    return m_ap50.avg   
+    return m_ap50.avg, m_iou.avg, m_top1.avg   
 
 if __name__ == "__main__":
     main()
