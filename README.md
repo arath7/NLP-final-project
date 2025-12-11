@@ -10,3 +10,6 @@
 ## Running the Models:
 - If running the models locally, follow the Talk2Car instructions here: https://github.com/talk2car/Talk2Car
 - If running the models on a Cloud GPU or other virtual instance, use the NLP-final-project-model-runner.ipynb file to mount this folder as a zipped folder to your Google drive and run it from there following the instructions within the notebook
+
+## Data:
+- The data outputs from the final models discussed in the paper are located within the model_results folder as .txt files
